@@ -1,0 +1,93 @@
+_schema-version: "3.2"
+ID: techarch
+description: Fiori elements app
+version: 0.0.1
+modules:
+- name: techarch-dest-content
+  type: com.sap.application.content
+  requires:
+  - name: techarch-dest-srv
+    parameters:
+      content-target: true
+  - name: techarch-repo-host
+    parameters:
+      service-key:
+        name: techarch-repo-host-key
+  - name: techarch-uaa
+    parameters:
+      service-key:
+        name: techarch-uaa-key
+  parameters:
+    content:
+      instance:
+        destinations:
+        - Name: techarch_repo_host
+          ServiceInstanceName: techarch-html5-srv
+          ServiceKeyName: techarch-repo-host-key
+          sap.cloud.service: techarch
+        - Authentication: OAuth2UserTokenExchange
+          Name: techarch_uaa
+          ServiceInstanceName: techarch-xsuaa-srv
+          ServiceKeyName: techarch-uaa-key
+          sap.cloud.service: techarch
+        existing_destinations_policy: update
+  build-parameters:
+    no-source: true
+- name: techarch-app-content
+  type: com.sap.application.content
+  path: .
+  requires:
+  - name: techarch-repo-host
+    parameters:
+      content-target: true
+  build-parameters:
+    build-result: resources
+    requires:
+    - artifacts:
+      - techarch.zip
+      name: techarch
+      target-path: resources/
+- name: techarch
+  type: html5
+  path: techarch
+  build-parameters:
+    build-result: dist
+    builder: custom
+    commands:
+    - npm install
+    - npm run build:cf
+    supported-platforms: []
+resources:
+- name: techarch-uaa
+  type: org.cloudfoundry.managed-service
+  parameters:
+    path: ./xs-security.json
+    service: xsuaa
+    service-name: techarch-xsuaa-srv
+    service-plan: application
+- name: techarch-dest-srv
+  type: org.cloudfoundry.managed-service
+  parameters:
+    config:
+      HTML5Runtime_enabled: true
+      init_data:
+        instance:
+          destinations:
+          - Authentication: NoAuthentication
+            Name: ui5
+            ProxyType: Internet
+            Type: HTTP
+            URL: https://ui5.sap.com
+          existing_destinations_policy: update
+      version: 1.0.0
+    service: destination
+    service-name: techarch-dest-srv
+    service-plan: lite
+- name: techarch-repo-host
+  type: org.cloudfoundry.managed-service
+  parameters:
+    service: html5-apps-repo
+    service-name: techarch-html5-srv
+    service-plan: app-host
+parameters:
+  deploy_mode: html5-repo
