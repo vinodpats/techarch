@@ -1,14 +1,9 @@
-<mvc:View
-    controllerName="techarch.controller.View1"
-    xmlns:mvc="sap.ui.core.mvc"
-    displayBlock="true"
-    xmlns="sap.m"
->
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="techarch.controller.View1" displayBlock="true">
     <Shell id="shell">
         <App id="app">
             <pages>
                 <Page id="page" title="{i18n>title}">
-                    <content />
+                    <content> <Link xmlns="sap.m" href="https://portal.accenture.com" text="Accenture Portal" id="link0"/> </content>
                 </Page>
             </pages>
         </App>
