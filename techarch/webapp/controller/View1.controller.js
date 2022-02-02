@@ -10,6 +10,10 @@ sap.ui.define([
         return Controller.extend("techarch.controller.View1", {
             onInit: function () {
 
+            },
+
+            onPress: function (){
+                    MessageToast.show("Yes, button was pressed");
             }
         });
     });
