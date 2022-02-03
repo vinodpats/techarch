@@ -25,6 +25,12 @@ sap.ui.define([
 
                 // set the device model
                 this.setModel(models.createDeviceModel(), "device");
+
+                //initialize model
+                var oModel = new sap.ui.model.json.JSONModel();
+                oModel.loadData("https://api.nytimes.com/svc/topstories/v2/home.json?api-key=IpKaNod29tFhfdYgmOlgVcguOpYjslyC");
+                this.setModel(oModel);
+
             }
         });
     }

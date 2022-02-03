@@ -4,11 +4,16 @@
             <pages>
                 <Page id="page" title="{i18n>title}">
                 <content>
-               
-                <Shell id="_IDGenShell1">
-            onPressButton: function (){
-                <Button xmlns="sap.m" text="Press Me" id="button0" icon="sap-icon://display" press="onPress"/>     
-                    </Shell>
+                    <!--                
+                    <Shell id="_IDGenShell1">
+                         <Button xmlns="sap.m" text="Press Me" id="button0" icon="sap-icon://display" press="onPress"/>     
+                    </Shell> -->
+                    
+                <List noDataText="Drop list items here" id="list0" items="{/results}" footerText="CopyRight">
+                    <items>
+                        <StandardListItem type="Navigation" title="{title}" description="{abstract}" icon="{multimedia/0/url}" id="item0" press="onPress"/>
+                    </items>
+                </List>
                 </content>
                 </Page>
             </pages>
