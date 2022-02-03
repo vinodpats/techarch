@@ -4,7 +4,7 @@
             <pages>
                 <Page id="page" title="{i18n>title}">
                 <content>
-               <List noDataText="Drop list items here" id="list0" items="{/results}" footerText="CopyRight">
+               <List noDataText="Loading.." id="list0" items="{/results}" footerText="CopyRight- New York Times">
                     <items>
                         <StandardListItem type="Navigation" title="{title}" description="{abstract}" icon="{multimedia/0/url}" id="item0" press="onPress"/>
                     </items>
